@@ -9,7 +9,26 @@ using namespace std;
 #define ROWS 100
 #define COLS 100
 
-// initial solution:
+// common functions needed for populating and printing matrix:
+void populateMatrix(char matrix[ROWS][COLS], int n)
+{
+    for (int ri = 0; ri < n; ri++)
+        for (int ci = 0; ci < n; ci++)
+            matrix[ri][ci] = 'A' + ri * n + ci;
+}
+
+void printMatrix(char matrix[ROWS][COLS], int n)
+{
+    for (int ri = 0; ri < n; ri++)
+    {
+        for (int ci = 0; ci < n; ci++)
+            cout << matrix[ri][ci] << "  ";
+        cout << endl;
+    }
+    cout << endl;
+}
+
+// initial solution (ARK's solution):
 void performOneRotation(char matrix[ROWS][COLS], int n, int ri, int ci, int stackDepth)
 {
     char tempChar = matrix[ri][ci];
@@ -24,18 +43,7 @@ void performOneRotation(char matrix[ROWS][COLS], int n, int ri, int ci, int stac
     matrix[newRow][newCol] = tempChar;
 }
 
-void printMatrix(char matrix[ROWS][COLS], int n)
-{
-    for (int ri = 0; ri < n; ri++)
-    {
-        for (int ci = 0; ci < n; ci++)
-            cout << matrix[ri][ci] << "  ";
-        cout << endl;
-    }
-    cout << endl;
-}
-
-void rotateMatrix(char matrix[ROWS][COLS], int n)
+void rotateMatrixARK(char matrix[ROWS][COLS], int n)
 {
     for (int ri = 0; ri * 2 < n; ri++)
     {
@@ -47,17 +55,40 @@ void rotateMatrix(char matrix[ROWS][COLS], int n)
     }
 }
 
-void populateMatrix(char matrix[ROWS][COLS], int n)
+
+// Sarfraz's solution:
+void reverseRows(char matrix[ROWS][COLS], int n)
 {
     for (int ri = 0; ri < n; ri++)
-        for (int ci = 0; ci < n; ci++)
-            matrix[ri][ci] = 'A' + ri * n + ci;
+        for (int ci = 0; ci < n / 2; ci++)
+        {
+            char temp = matrix[ri][ci];
+            matrix[ri][ci] = matrix[ri][n - ci - 1];
+            matrix[ri][n - ci - 1] = temp;
+        }
+}
+
+void transposeMatrix(char matrix[ROWS][COLS], int n)
+{
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+        {
+            char temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+}
+
+void rotateMatrix(char matrix[ROWS][COLS], int n)
+{
+    reverseRows(matrix, n);
+    transposeMatrix(matrix, n);
 }
 
 int main()
 {
     char matrix[ROWS][COLS]{};
-    int n = 7; // change value of n for different sizes of matrices
+    int n = 6; // change value of n for different sizes of matrices
     populateMatrix(matrix, n);
     printMatrix(matrix, n);
     cout << endl;

@@ -58,8 +58,7 @@ void urlify(char charsArray[], int arrayLength)
 int main()
 {
     char charsArray[100] = "I am a string";
-    // int arrayLength = strlen(charsArray);
-    int arrayLength = 13; // avoiding the lengthy procedure needed to count alphabets first for efficient sol
+    int arrayLength = strlen(charsArray);
     urlify(charsArray, arrayLength);
     cout << charsArray;
     return 0;

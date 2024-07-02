@@ -1,5 +1,5 @@
 // This program is part of the implementation of Lecture 2 of the CCI Course 2024 by Sarfraz Raza
-// Problem 2a:
+// Problem 2b:
 // Implementing a dynamic array (better method):
 
 #include <iostream>

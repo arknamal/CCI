@@ -1,5 +1,5 @@
 // This program is part of the implementation of Lecture 2 of the CCI Course 2024 by Sarfraz Raza
-// Problem 2b:
+// Problem 2c:
 // Bubble Sort
 
 #include <iostream>

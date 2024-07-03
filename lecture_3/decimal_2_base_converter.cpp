@@ -18,7 +18,7 @@ char convertIntToBasedChar(int remainder)
     }
     return chunk;
 }
-string decimalToBaseConverter(int n, int base)
+string decimalToBaseConverterWithString(int n, int base)
 {
     string result = "";
     int remainder = -1, quotient = n;
@@ -33,12 +33,42 @@ string decimalToBaseConverter(int n, int base)
     return result;
 }
 
+// better solution using stack:
+string decimalToBaseConverter(int n, int base)
+{
+    int remainder = 0;
+    stack<char> chars;
+
+    do
+    {
+        remainder = n % base;
+        n /= base;
+        if (remainder > 9)
+        {
+            chars.push('A' + remainder - 10);
+        } else
+        {
+            chars.push('0' + remainder);
+        }
+    } while (n != 0);
+
+    int size = chars.size();
+    char *result = new char[size + 1] {};
+    
+    for (int i = 0; i < size; i++)
+    {
+        result[i] = chars.top();
+        chars.pop();
+    }
+    return result;
+}
+
 int main()
 {
     int n = 0, b = 10;
     while (true)
     {
-        cout << "Give nummber and base: " << endl;
+        cout << "Give nummber and base (2..36): " << endl;
         cin >> n;
         if (n < 0)
         {

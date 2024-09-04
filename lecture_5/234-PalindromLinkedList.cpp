@@ -23,15 +23,30 @@ Follow up: Could you do it in O(n) time and O(1) space?
 
 class Solution {
 public:
-	bool isPalindrome(ListNode* head) {
+	bool isPalindromeUsingVector(ListNode* head) {
 		vector<int> values = {};
 		for(auto i = head; i != nullptr; i = i->next) {
-				values.push_back(i->val);
+			values.push_back(i->val);
 		}
 		int n = values.size() - 1;
 		for(int i = 0; i <= n/2; i++) {
-				if(values[i] != values[n - i])
-						return false;
+			if(values[i] != values[n - i])
+				return false;
+		}
+		return true;
+	}
+	bool isPalindromeUsingStack(ListNode* head) {
+		stack<int> s = {};
+		for(auto i = head; i != nullptr; i = i->next) {
+			s.push(i->val);
+		}
+		int n = (s.size() - 1) / 2;
+		ListNode* N = head;
+		for(int i = 0; i <= n; i++) {
+			if(N->val != s.top())
+				return false;
+			N = N->next;
+			s.pop();
 		}
 		return true;
 	}

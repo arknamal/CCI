@@ -15,11 +15,11 @@ bool coinChange(int n, int& threes, int& fives) {
         threes += n/3;
         n /= 3;
         return true;
-    } else if (coinChange(n - 5,threes,fives)) {
-        fives++;
-        return true;
     } else if (coinChange(n - 3,threes,fives)) {
         threes++;
+        return true;
+    } else if (coinChange(n - 5,threes,fives)) {
+        fives++;
         return true;
     }
     return false;

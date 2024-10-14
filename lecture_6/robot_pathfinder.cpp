@@ -1,7 +1,7 @@
 // This program is part of the implementation of Lecture 6 of the CCI Course 2024 by Sarfraz Raza
 // Problem 6e:
 // Robot Pathfinding:
-// Provided an 2D array with multiple robots and obstacles (robot_map.txt), determine whether each can
+// Provided a 2D array with multiple robots and obstacles (robot_map.txt), determine whether each can
 // reach the designated destination or not.
 
 #include <iostream>
@@ -50,19 +50,14 @@ void find_robots (vector <vector <int>> Terrain, vector <Position> &RobotPositio
 				RobotPositions.push_back(Position {ri, ci});
 }
 
-bool can_reach (vector <vector <int>> Terrain, Position position) {
+bool can_reach (vector <vector <int>> &Terrain, Position position) {
 	int rows = Terrain.size();
 	int cols = Terrain[0].size();
 	int row = position.ri;
 	int col = position.ci;
-	if (
-			Terrain[row][col] == 1 ||
-			Terrain[row][col] == -1 ||
-			row < rows ||
-			row > rows ||
-			col < cols ||
-			col > cols
-		)
+	if (row < 0 || row >= rows || col < 0 || col >= cols)
+		return false;
+	else if (Terrain[row][col] == 1 || Terrain[row][col] == -1)
 		return false;
 	else if (Terrain[row][col] == 3)
 		return true;
@@ -80,10 +75,11 @@ bool can_reach (vector <vector <int>> Terrain, Position position) {
 void print_reach_of_all_robots (vector <vector <int>> Terrain, vector <Position> RobotPositions) {
 	for (int i = 0; i < RobotPositions.size(); i++) {
 		Position robot = RobotPositions[i];
+		vector <vector <int>> TerrainCopy = Terrain;
 		cout << "robot at (" << robot.ri << "," << robot.ci << ") can";
-		if (!can_reach(Terrain, robot))
+		if (!can_reach(TerrainCopy, robot))
 			cout << "not";
-		cout << " escape!" << endl;
+		cout << " reach the destination!" << endl;
 	}
 }
 

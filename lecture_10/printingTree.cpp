@@ -1,5 +1,5 @@
 // This program is part of the implementation of Lecture 10 of the CCI Course 2024 by Sarfraz Raza
-// Problem 6a:
+// Problem 10a:
 // Print Tree:
 // Write a recursive function outputTree to display a binary tree object on the screen. The
 // function should output the tree row by row, with the top of the tree at the left of the
@@ -10,6 +10,8 @@ using namespace std;
 
 template <typename T>
 class BinarySearchTree {
+
+  // The Node struct is the building block of the tree; all branches, leaves and the root are of node type:
   struct Node {
       T Data;
     Node *Left, *Right;
@@ -18,6 +20,7 @@ class BinarySearchTree {
       {}
   };
 
+  // All that the tree is:
   Node* Root;
 
   // This private function is used by public function `insert`:
@@ -49,6 +52,7 @@ class BinarySearchTree {
 
   public:
 
+    // Constructor - initializes the tree root as nullptr:
     BinarySearchTree() {
       Root = nullptr;
     }

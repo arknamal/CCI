@@ -18,6 +18,9 @@ class BinarySearchTree {
       {}
   };
 
+  Node* Root;
+
+  // This private function is used by public function `insert`:
   void insertRecursively(Node* Root, T Data) {
     if (Root->Data > Data) {
       if (Root->Left)
@@ -33,6 +36,7 @@ class BinarySearchTree {
     }
   }
 
+  // This is the desired function but is private and called by the public function `print`:
   void outputTree(Node* Root, int depth) {
     if (!Root)
       return;
@@ -43,13 +47,13 @@ class BinarySearchTree {
     outputTree(Root->Left, depth + 1);
   }
 
-  Node* Root;
-  
   public:
+
     BinarySearchTree() {
       Root = nullptr;
     }
 
+    // This function inserts data in the Binary Search Tree using `insertRecursively` private function:
     void insert(T Data) {
       if (Root == nullptr)
         Root = new Node(Data);
@@ -57,6 +61,7 @@ class BinarySearchTree {
         insertRecursively(Root, Data);
     }
 
+    // This function prints data of the Binary Search Tree from L2R using `outputTree` private function:
     void print() {
       cout << endl;
       outputTree(Root, 0);

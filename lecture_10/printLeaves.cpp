@@ -37,7 +37,7 @@ class BinarySearchTree {
     }
   }
 
-  // This is the desired function but is private and called by the public function `print`:
+  // This fucntion prints tree recursively. It is called by the public function `print`:
   void outputTree(Node* Root, int depth) {
     if (!Root)
       return;
@@ -46,6 +46,24 @@ class BinarySearchTree {
       cout << "\t";
     cout << Root->Data << endl;
     outputTree(Root->Left, depth + 1);
+  }
+
+  // This function simply checks if the node is a leaf node i.e. both left and right branches are nullptr:
+  bool isLeaf(Node* Root) {
+    return !(Root->Left || Root->Right);
+  }
+
+  // This is a private that outputs leaves of the BST. It is called by the public function `printLeaves`.
+  // It also uses isLeaf private function:
+  void outputLeaves(Node* Root) {
+    if (!Root)
+      return;
+    if (Root->Left)
+      outputLeaves(Root->Left);
+    if (Root->Right)
+      outputLeaves(Root->Right);
+    if (isLeaf(Root))
+      cout << Root->Data << " ";
   }
 
   public:
@@ -69,6 +87,12 @@ class BinarySearchTree {
       outputTree(Root, 0);
       cout << endl;
     }
+
+    // This function prints data of the leaf nodes of the Binary Search Tree recursively using
+    // `outputLeaves` private function:
+    void printLeaves() {
+      outputLeaves(Root);
+    }
 };
 
 int main() {
@@ -88,5 +112,6 @@ int main() {
   MyBST.insert(72);
   MyBST.insert(92);
   MyBST.insert(99);
-  // MyBST.print();
+  MyBST.insert(100);
+  MyBST.printLeaves();
 }

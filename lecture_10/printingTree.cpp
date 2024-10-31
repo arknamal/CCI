@@ -15,9 +15,7 @@ class BinarySearchTree {
     Node *Left, *Right;
     public:
       Node(T Data, Node* Left = nullptr, Node* Right = nullptr):Data{Data}, Left{Left}, Right{Right}
-      {
-
-      }
+      {}
   };
 
   void insertRecursively(Node* Root, T Data) {
@@ -35,6 +33,16 @@ class BinarySearchTree {
     }
   }
 
+  void outputTree(Node* Root, int depth) {
+    if (!Root)
+      return;
+    outputTree(Root->Right, depth + 1);
+    for (int i = 0; i < depth; i++)
+      cout << "\t";
+    cout << Root->Data << endl;
+    outputTree(Root->Left, depth + 1);
+  }
+
   Node* Root;
   
   public:
@@ -48,8 +56,30 @@ class BinarySearchTree {
       else
         insertRecursively(Root, Data);
     }
-}
+
+    void print() {
+      cout << endl;
+      outputTree(Root, 0);
+      cout << endl;
+    }
+};
 
 int main() {
-
+  BinarySearchTree<int> MyBST;
+  MyBST.insert(49);
+  MyBST.insert(28);
+  MyBST.insert(83);
+  MyBST.insert(18);
+  MyBST.insert(40);
+  MyBST.insert(71);
+  MyBST.insert(97);
+  MyBST.insert(11);
+  MyBST.insert(19);
+  MyBST.insert(32);
+  MyBST.insert(44);
+  MyBST.insert(69);
+  MyBST.insert(72);
+  MyBST.insert(92);
+  MyBST.insert(99);
+  MyBST.print();
 }

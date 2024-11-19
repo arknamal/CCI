@@ -31,6 +31,7 @@ Constraints:
  * };
  */
 
+// intuitive solution:
 class Solution {
 public:
   int minDepth(TreeNode* root) {
@@ -43,6 +44,45 @@ public:
         return minDepth(root->left) + 1;
       else
         return min(minDepth(root->left), minDepth(root->right)) + 1;
+    else
+      return 0;
+  }
+};
+
+// second solution - using queue (find the first leaf in level-order traversal and exit immediately):
+class Solution {
+  bool isLeaf(TreeNode* root) {
+    return !(root->left || root->right);
+  }
+
+  int closestLeaf(queue<TreeNode*>& Q) {
+    int depth = 0;
+    while(!Q.empty()) {
+      int size = Q.size();
+      for(int i = 0; i < size; i++) {
+        TreeNode* N = Q.front();
+        if(isLeaf(N))
+          return depth;
+        Q.pop();
+        TreeNode* L = N->left;
+        TreeNode* R = N->right;
+        if(L)
+          Q.push(L);
+        if(R)
+          Q.push(R);
+      }
+      depth++;
+    }
+    return 0;
+  }
+
+public:
+  int minDepth(TreeNode* root) {
+    if(root) {
+      queue<TreeNode*> Q;
+      Q.push(root);
+      return closestLeaf(Q) + 1;
+    }
     else
       return 0;
   }
